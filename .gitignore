@@ -1,0 +1,30 @@
+# Conteúdo do .gitignore típico para projetos Python com Jupyter e Docker
+gitignore_content = """\
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Data
+*.csv
+*.json
+*.log
+
+# Environment
+.env
+.venv/
+env/
+venv/
+ENV/
+Pipfile.lock
+
+# VSCode
+.vscode/
+
+
