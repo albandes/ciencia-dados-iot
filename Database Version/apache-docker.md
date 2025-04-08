@@ -1,6 +1,4 @@
-Aqui está o arquivo único `.md` completo com todas as instruções:
 
-```markdown
 # Guia Completo: Servidor Apache no Docker para Windows
 
 ## Pré-requisitos
