@@ -106,34 +106,66 @@ docker rmi <id>           # Remove imagem
 Esses comandos permitem baixar, executar e gerenciar containers.
 
 ---
-
 ## 🌐 Executando Apache com Docker
 
-```bash
-docker run -d -p 8080:80 httpd
+### Pré-requisitos
+- Docker Desktop instalado no Windows
+- Terminal (PowerShell ou Prompt de Comando)
+
+### Passo a passo
+
+1. Baixar a imagem oficial do Apache
+```powershell
+docker pull httpd:latest
 ```
 
-Acesse no navegador:  
+2. Criar diretório para os arquivos HTML
+```powershell
+mkdir C:\apache-html
+```
+
+3. Criar arquivo HTML de teste
+```powershell
+echo "<h1>Meu servidor Apache no Docker funciona!</h1>" > C:\apache-html\index.html
+```
+
+4. Executar o container Apache
+```powershell
+docker run -dit --name meu-apache -p 8080:80 -v C:\apache-html:/usr/local/apache2/htdocs/ httpd:latest
+```
+
+Explicação dos parâmetros:
+
+* `-dit`: Executa o container em segundo plano (detached) e fornece um terminal interativo.
+* `--name meu-apache`: Define o nome do container como `meu-apache`. Isso facilita referenciar o container em comandos futuros.
+* `-p 8080:80`: Mapeia a porta `8080` da sua máquina host para a porta `80` dentro do container. Isso permite acessar o servidor web rodando no container através do endereço `http://localhost:8080` (ou o IP da sua máquina seguido por `:8080`).
+* `-v C:\apache-html:/usr/local/apache2/htdocs/`: Monta um volume. Isso significa que o diretório local `C:\apache-html` na sua máquina será sincronizado com o diretório `/usr/local/apache2/htdocs/` dentro do container. Quaisquer arquivos que você colocar em `C:\apache-html` estarão disponíveis no servidor web dentro do container, e vice-versa.
+
+**Em resumo:**
+
+O comando `docker run` com estes parâmetros irá:
+
+1.  Criar e iniciar um container em segundo plano.
+2.  Nomear este container como `meu-apache`.
+3.  Tornar o servidor web (rodando na porta 80 dentro do container) acessível na porta 8080 da sua máquina.
+4.  Permitir que você modifique os arquivos do servidor web através do diretório local `C:\apache-html`.
+   
+5. Verificar se o container está rodando
+
+```powershell
+docker ps
+```
+
+6. Acessar no navegador
+   
 [http://localhost:8080](http://localhost:8080)
 
-📄 Você verá a página padrão do Apache rodando dentro de um container.
+**Comandos úteis adicionais***
 
----
-
-## 🧪 Exemplo com Página HTML Personalizada
-
-1. Criar uma pasta e um arquivo HTML:
-```bash
-mkdir meu-site
-echo "<h1>Bem-vindo ao meu site!</h1>" > meu-site/index.html
-```
-
-2. Executar container com volume:
-```bash
-docker run -d -p 8080:80 -v "$PWD/meu-site":/usr/local/apache2/htdocs/ httpd
-```
-
-3. Recarregue o navegador: sua própria página será exibida!
+* `docker stop meu-apache`: Parar o container
+* `docker start meu-apache`: Iniciar o container 
+* `docker exec -it meu-apache bash`: Acessar o shell do container (para troubleshooting)
+* `docker rm -f meu-apache`: Remover o container (quando não for mais necessário)
 
 ---
 
