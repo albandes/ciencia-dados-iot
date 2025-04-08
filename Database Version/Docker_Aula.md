@@ -1,7 +1,7 @@
 
 # Docker: Containers na Prática
 _Introdução, Instalação e Execução de Imagens Prontas_  
-👨‍🏫 Nome do Professor – Disciplina
+👨‍🏫 Dr. Rogério Albandes, PhD in Computer Science – Ciência de Dados na Internet das Coisas 
 
 ---
 
